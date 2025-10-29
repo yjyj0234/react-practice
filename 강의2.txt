@@ -1,0 +1,96 @@
+https://app.diagrams.net/#G1j2LVBewkBSDO9XAJfteKaeoLnPcBa6ml#%7B%22pageId%22%3A%22mCbZgtbo4ZhHDfHtWfDM%22%7D 영화
+https://app.diagrams.net/#G1FdXjdBxBFGnvw_kafK45WLTLihqhSOi_#%7B%22pageId%22%3A%22n-37rRMyR4x0Vthf33z1%22%7D
+background-clip
+
+
+The Movie DB API 요청을 위한 Axios 인스턴스 생성 및 요청 보내기
+Axios 사용 방법
+axios 모듈 설치 npm install axios --save
+
+기존 fetch("경로") 대신
+ 
+axios.get('https://api.themoviedb.org/3/trending/all.week') 사용
+
+Axios 란 무엇인가?
+• Axios는 브라우저, Node.js를 위한 Promise API를 활용하는 HTTP 비동기 통신 라이브러리입니다.
+
+• 쉽게 말해서 백엔드랑 프론트엔드랑 통신을 쉽게하기 위해 Ajax와 더불어 사용합니다.
+
+실무에선 axios 가 더 기능이 많고 더 널리 사용
+
+fetch 같은경우 response 로 받아오고 => json형식으로 변환해줘야했음
+
+axios 는 바로 json 형식
+
+Axios 인스턴스화 하는 이유
+중복된 부분 계속 입력안해도 됨
+
+Get Movie BY Latest
+https://api.themoviedb.org/3/movie/latest?api_key =<< api_key>>&language=en-US
+Get Movie Detail
+https://api.themoviedb.org/3/movie/{movie_id}?api_key =<< api_key>>&language=en-US
+Get Movie Reviews
+https://api.themoviedb.org/3/movie/{movie_id}/reviews?api_key =<< api_key>>&language=en-US&page=1
+Get Trending
+https://api.themoviedb.org/3/movie/latest?api_key =<< api_key>>&language=en-US
+
+똑같은 부분이 있어서 인스턴스 생성할 폴더 파일 만들고 base URL 생성할 계획
+
+styled-component(css)
+#with npm
+npm install --save styled-components
+
+
+
+--------------------------------
+const [show, handleShow] = useState(false);
+
+useEffect(() => {
+window. addEventListener("scroll", () => {
+if (window. scrollY > 50) {
+handleShow(true);
+} else {
+handleShow(false);
+
++
+
+}):
+return () => {
+window. removeEventListener("scroll", () => (});
+
+},[]);
+
+현재 "스크롤"이라는 이벤트가 발생하면 어떠한 함수를 호출할 건지 리스너를 등록해준 것
+입니다.
+
+이것을 이벤트 리스너 등록이라고 하는데 이 리스너를 등록했기 때문에 마우스 스크롤을
+할 때마다 함수가 호출된 것입니다.
+
+근데 이 해당 컴포넌트를 사용하지 않는데 이 리스너가 계속 등록되어있으면 안 되겠죠 ?!!
+
+그렇기 때문에 이 리스너를 제거해주는 부분입니다.
+
+컴포넌트를 사용하지 않게 될 때 스크롤에 대한 이벤트가 발생할 때 호출되는 함수를 더 이
+상 호출되지 않게 해당 이벤트 리스너를 지워주는 부분입니다.
+
+<NavWrapper show={show}>
+
+
+-------------------------------------------
+Debounce가 무엇인가요?
+
+아래 그림을 보면 검색 입력에 입력할 때 입력 결과가 나타날 때까지 지연이 있습니다. 이 기능은 debounce디바운스라
+는 function에 의해 제어됩니다. debounce function 은 사용자가 미리 결정된 시간 동안 타이핑을 멈출 때까지 keyup
+이벤트의 처리를 지연시킵니다.
+
+이렇게 하면 UI 코드가 모든 이벤트를 처리할 필요가 없고 서버로 전송되는 API 호출 수도 크게 줄어듭니다. 입력된 모
+
+든 문자를 처리하면 성능이 저하되고 백엔드에 불필요한 로드가 추가될 수 있습니다.
+(검색할때 한글자씩 콘솔에 뜨는게 아니라 글자 다치고 한번에 뜨는느낌)
+
+
+---------------------------
+userRef
+1.변수관리
+2. 특정 DOM을 선택 할때 사용하는 훅
+
