@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUser, setUser } from '../store/userSlice';
 
 const Nav = () => {
-  const initialUserData = localStorage.getItem('userData') ? 
-  JSON.parse(localStorage.getItem('userData')) : {};//text로 되어있는 데이터를 다시 객체로 변환
+  // const initialUserData = localStorage.getItem('userData') ? 
+  // JSON.parse(localStorage.getItem('userData')) : {};//text로 되어있는 데이터를 다시 객체로 변환
 
   const [show, setShow] = useState(false);
   const { pathname } = useLocation();
@@ -14,7 +16,10 @@ const Nav = () => {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
 
-  const [userData, setUserData] = useState(initialUserData); //initialUserData 넣으면 프로필 이미지 살아있음
+  //const [userData, setUserData] = useState(initialUserData); //initialUserData 넣으면 프로필 이미지 살아있음
+  const dispatch = useDispatch();
+
+  const userData = useSelector(state => state.user);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -62,9 +67,17 @@ const Nav = () => {
   const handleAuth = () => {
     signInWithPopup(auth, provider)
       .then(result => {
-        setUserData(result.user);
-        localStorage.setItem('userData', JSON.stringify(result.user));
-        console.log('result', result);
+        // setUserData(result.user);
+
+        dispatch(setUser({
+          id: result.user.uid,
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL
+        }))
+
+        
+        // console.log('result', result);
       })
       .catch(error => {
         console.log('error', error);
@@ -74,8 +87,8 @@ const Nav = () => {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        setUserData({});
-        navigate(`/`);
+        dispatch(removeUser)
+        
       }).catch((error) => {
         console.log('error', error);
       })

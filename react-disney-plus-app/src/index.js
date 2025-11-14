@@ -5,14 +5,21 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import app from './firebase';
+import { Provider } from 'react-redux';
+import { persistor, store } from './store';
+import { PersistGate } from 'redux-persist/integration/react';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>  {/* Redux 스토어 에서 지속 데이터를 사용할 수 있을 때까지 앱의 UI렌더링을 지연 */}
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+    </PersistGate>
+  </Provider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
